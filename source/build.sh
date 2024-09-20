@@ -6,7 +6,7 @@ TRANSLATION_DIR="../Translations"
 # AVAILABLE_LANGUAGES will be calculating according to json files in $TRANSLATION_DIR
 AVAILABLE_LANGUAGES=()
 BUILD_LANGUAGES=()
-AVAILABLE_MODELS=("TS100" "TS80" "TS80P" "Pinecil" "MHP30" "Pinecilv2" "S60" "S60P" "T55" "TS101")
+AVAILABLE_MODELS=("TS100" "TS80" "TS80P" "Pinecil" "MHP30" "MHP50" "Pinecilv2" "S60" "S60P" "T55" "TS101")
 BUILD_MODELS=()
 
 builder_info() {
@@ -168,6 +168,7 @@ if [ ${#BUILD_LANGUAGES[@]} -gt 0 ] && [ ${#BUILD_MODELS[@]} -gt 0 ]; then
 
     for model in "${BUILD_MODELS[@]}"; do
         echo "Building firmware for $model in ${BUILD_LANGUAGES[*]}"
+        # make -j"$(nproc)" SHELL='sh -x' model="$model" "${BUILD_LANGUAGES[@]/#/firmware-}" # >/dev/null
         make -j"$(nproc)" model="$model" "${BUILD_LANGUAGES[@]/#/firmware-}" >/dev/null
         checkLastCommand
     done

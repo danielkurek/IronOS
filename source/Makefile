@@ -6,8 +6,9 @@ ALL_MINIWARE_MODELS=TS100 TS80 TS80P TS101
 ALL_PINECIL_MODELS=Pinecil
 ALL_PINECIL_V2_MODELS=Pinecilv2
 ALL_MHP30_MODELS=MHP30
+ALL_MHP50_MODELS=MHP50
 ALL_SEQURE_MODELS=S60 S60P T55
-ALL_MODELS=$(ALL_MINIWARE_MODELS) $(ALL_PINECIL_MODELS) $(ALL_MHP30_MODELS) $(ALL_PINECIL_V2_MODELS) $(ALL_SEQURE_MODELS)
+ALL_MODELS=$(ALL_MINIWARE_MODELS) $(ALL_PINECIL_MODELS) $(ALL_MHP30_MODELS) $(ALL_MHP50_MODELS) $(ALL_PINECIL_V2_MODELS) $(ALL_SEQURE_MODELS)
 
 ifneq ($(model),$(filter $(model),$(ALL_MODELS)))
 $(error Invalid model '$(model)', valid options are: $(ALL_MODELS))
@@ -181,6 +182,35 @@ bootldr_size=32k
 DEVICE_DFU_ADDRESS=0x08008000
 DEVICE_DFU_VID_PID=0x1209:0xDB42
 endif # ALL_MHP30_MODELS
+
+ifeq ($(model),$(filter $(model),$(ALL_MHP50_MODELS)))
+$(info Building for MHP50 )
+
+DEVICE_BSP_DIR=./Core/BSP/MHP50
+LDSCRIPT=./Core/BSP/MHP50/ch32f208wb.ld
+DEV_GLOBAL_DEFS=-D CH32F20x_D8W     \
+                -D USE_RTOS_SYSTICK \
+                -D GCC_ARMCM3       \
+                -D ARM_MATH_CM3
+
+# Unused?: USE_RTOS_SYSTICK, GCC_ARMCM3, GCC_ARMCM3, ARM_MATH_CM3
+
+DEV_LDFLAGS=
+DEV_AFLAGS=
+DEV_CFLAGS=-D VECT_TAB_OFFSET=$(bootldr_size)U
+DEV_CXXFLAGS=
+CPUFLAGS=-mcpu=cortex-m3 \
+         -mthumb         \
+         -mfloat-abi=soft
+
+# flash_size=128k
+flash_size=0x20000
+# bootldr_size=64k
+bootldr_size=0x10000
+# TODO: check DFU settings
+DEVICE_DFU_ADDRESS=0x08010000
+DEVICE_DFU_VID_PID=0x1209:0xDB42
+endif # ALL_MHP50_MODELS
 
 ifeq ($(model),$(ALL_PINECIL_MODELS))
 $(info Building for Pine64 Pinecilv1)
@@ -370,7 +400,7 @@ COMPILER=gcc
 # arm-none-eabi is the general ARM compiler
 # riscv-none-embed is the riscv compiler
 # riscv-nuclei-elf is the nuclei tuned one for their cores
-ifeq ($(model),$(filter $(model),$(ALL_MINIWARE_MODELS) $(ALL_MHP30_MODELS)))
+ifeq ($(model),$(filter $(model),$(ALL_MINIWARE_MODELS) $(ALL_MHP30_MODELS) $(ALL_MHP50_MODELS)))
 COMPILER_PREFIX=arm-none-eabi
 endif
 ifeq ($(model),$(filter $(model),$(ALL_SEQURE_MODELS) ))
