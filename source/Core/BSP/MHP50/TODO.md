@@ -1,30 +1,29 @@
 # TODO list
 
 - [ ] `BSP.cpp`
-- [ ] `FreeRTOSConfig.h`
+- [x] `FreeRTOSConfig.h`
 - [ ] `IRQ.cpp`
 - [ ] `IRQ.h`
 - [ ] `Pins.h`
 - [ ] `Power.cpp`
-- [ ] `QC_GPIO.cpp`
+- [x] `QC_GPIO.cpp` - does not support QC
 - [ ] `README.md`
 - [ ] `Setup.c`
 - [ ] `Setup.h`
 - [ ] `Software_I2C.h`
-- [ ] `Startup/startup_stm32f103t8ux.S`
+- [x] `Startup/startup_stm32f103t8ux.S` -> `Startup/startupfile_ch32f208wb.S`
 - [ ] `ThermoModel.cpp`
-- [x] `Vendor/CMSIS/` -> test
-- [x] `Vendor/HAL_Driver/` -> `ch32f20x_hal`
-- [ ] `configuration.h`
-- [ ] `flash.c`
+- [x] `Vendor/CMSIS/` - test
+- [x] `Vendor/HAL_Driver/` -> `Vendor/ch32f20x_hal`
+- [ ] `configuration.h` - IronOS configuration
+- [x] `flash.c` - writing/reading flash
 - [ ] `fusb_user.cpp`
-- [ ] `port.c`
-- [ ] `portmacro.h`
-- [ ] `postRTOS.cpp`
-- [ ] `preRTOS.cpp`
+- [x] `port.c`
+- [x] `portmacro.h`
+- [x] `postRTOS.cpp`
+- [ ] `preRTOS.cpp` - not sure what to do here
 - [x] `stm32f103.ld` -> `ch32f208wb.ld`
-- [ ] `stm32f1xx_hal_msp.c`
-- [ ] `stm32f1xx_hal_timebase_TIM.c`
-- [ ] `stm32f1xx_it.c`
-- [ ] `system_stm32f1xx.c`
-
+- [ ] `stm32f1xx_hal_msp.c` - MCU support - timers, adc, ...
+- [ ] `stm32f1xx_hal_timebase_TIM.c` - timers init (period, ...)
+- [ ] `stm32f1xx_it.c` -> `ch32f20x_it.c` - some TODOs
+- [x] `system_stm32f1xx.c` -> `system_ch32f20x.c`
