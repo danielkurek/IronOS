@@ -10,13 +10,16 @@
 // #include "I2CBB2.hpp"
 #include "Pins.h"
 #include "Setup.h"
+#include "system_ch32f20x.h"
+#include "ch32f20x_misc.h"
 #include <I2C_Wrapper.hpp>
 
 void preRToSInit() {
   /* Reset of all peripherals, Initializes the Flash interface and the Systick.
    */
-//   HAL_Init();
-//   Setup_HAL(); // Setup all the HAL objects
+  // TODO: init peripherals
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+  SystemCoreClockUpdate();
   BSPInit();
 //   I2CBB2::init();
 //   I2CBB1::init();
