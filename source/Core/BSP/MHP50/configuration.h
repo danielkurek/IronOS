@@ -174,7 +174,8 @@
 #define NO_SLEEP_MODE
 #endif
 
-#define FLASH_LOGOADDR      (0x08000000 + (126 * 1024))
-#define SETTINGS_START_PAGE (0x08000000 + (127 * 1024))
+// page size is 4kb (can be lowered to 256 with fast mode)
+#define FLASH_LOGOADDR      (0x08000000 + (123 * 1024))
+#define SETTINGS_START_PAGE (0x08000000 + (124 * 1024))
 
 #endif /* CONFIGURATION_H_ */
